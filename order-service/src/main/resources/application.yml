@@ -1,0 +1,54 @@
+interface:
+  pcPrefix: http://product-service/
+
+mybatis-plus:
+  type-aliases-package: priv.patrick.order.pojo
+  mapper-locations: classpath:mapper/**/*.xml
+  global-config:
+    db-config:
+      id-type: auto
+
+###服务端口号
+server:
+  port: 8080
+
+###服务名称
+spring:
+  application:
+    name: order-service
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/study?useSSL=false
+    username: root
+    password: 123456
+
+###服务注册到eureka注册中心的地址
+eureka:
+  instance:
+    prefer-ip-address: true
+    instance-id: 127.0.0.1:8080
+  client:
+    service-url:
+      defaultZone: http://localhost:8000/eureka,http://127.0.0.1:8001/eureka
+    ###因为该应用为服务提供者，是eureka的一个客户端，需要注册到注册中心
+    register-with-eureka: true
+    ###是否需要从eureka上检索服务
+    fetch-registry: true
+
+product-service:
+  ribbon:
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+#    NFLoadBalancerRuleClassName: com.config.MyRibbonRule
+
+feign:
+# 配置httpclient线程池
+  httpclient:
+    enabled: true
+  client:
+    config:
+      default:
+        connect-timeout: 500
+        read-timeout: 1000
+# 开启hystrix断路器
+  #  hystrix:
+  #    enabled: true

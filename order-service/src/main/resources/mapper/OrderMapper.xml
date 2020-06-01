@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="priv.patrick.order.mapper.OrderMapper" >
+  <resultMap id="map" type="priv.patrick.order.pojo.Order">
+    <id property="id" column="orderId"/>
+    <result property="customer" column="customer"/>
+    <result property="state" column="state" typeHandler="OrderStateHandler"/>
+    <result property="createTime" column="create_time"/>
+    <result property="updateTime" column="update_time"/>
+    <collection property="items" ofType="priv.patrick.order.pojo.Coffee">
+      <id property="id" column="itemId"/>
+    </collection>
+  </resultMap>
+
+  <select id="selectOrderById" parameterType="java.lang.Long" resultMap="map">
+    select o.id as orderId, o.customer, o.state, o.create_time, o.update_time,
+        oc.item_id as itemId
+    from t_order o
+    join t_order_coffee oc on o.id = oc.order_id
+    where o.id = #{id}
+  </select>
+
+</mapper>
