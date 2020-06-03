@@ -60,6 +60,6 @@ feign:
         connect-timeout: 500
         read-timeout: 1000
 # 开启hystrix断路器
-  #  hystrix:
-  #    enabled: true
+  hystrix:
+    enabled: true
 

@@ -9,6 +9,7 @@ public class CoffeeServiceFallback  implements CoffeeService {
 
     @Override
     public Coffee selectCoffeeById(Long id) {
+        System.out.println("feign触发降级.");
         return new Coffee();
     }
 }

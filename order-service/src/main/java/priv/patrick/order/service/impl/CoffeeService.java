@@ -31,6 +31,7 @@ public class CoffeeService {
     }
 
     private Coffee selectCoffeeByIdFallback(Long id) {
+        System.out.println("触发降级.");
         return new Coffee();
     }
 }

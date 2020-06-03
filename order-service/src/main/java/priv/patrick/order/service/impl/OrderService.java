@@ -22,9 +22,9 @@ public class OrderService {
         List<Coffee> items = order.getItems();
         for (Coffee coffee : items) {
             // 通过商品微服务查询商品详细数据
-            Coffee result = this.coffeeService.selectCoffeeById(coffee.getId());
+//            Coffee result = this.coffeeService.selectCoffeeById(coffee.getId());
+            Coffee result = this.coffeeService.selectCoffeeByIdFeign(coffee.getId());
             BeanUtils.copyProperties(result,coffee);
-//            Item item = this.itemService.feignQueryItemByid(orderDetail.getItem().getId());
         }
         return order;
     }
